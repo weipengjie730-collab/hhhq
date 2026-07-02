@@ -18,7 +18,7 @@ examples.forEach((button) => {
   });
 });
 
-generateBtn.addEventListener("click", () => {
+generateBtn.addEventListener("click", async () => {
   const seed = input.value.trim();
   if (!seed) {
     input.focus();
@@ -32,15 +32,19 @@ generateBtn.addEventListener("click", () => {
   generateBtn.disabled = true;
   generateBtn.textContent = "生成中...";
 
-  window.setTimeout(() => {
-    const result = buildMockComic(seed);
+  try {
+    const result = await generateComic(seed);
     renderResult(result);
+  } catch (error) {
+    console.warn("Falling back to mock comic", error);
+    renderResult(buildMockComic(seed));
+  } finally {
     loadingCard.classList.add("is-hidden");
     resultCard.classList.remove("is-hidden");
     generateBtn.disabled = false;
     generateBtn.textContent = "重新生成 4 格脚本";
     resultCard.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, 900);
+  }
 });
 
 exportBtn.addEventListener("click", () => {
@@ -79,6 +83,24 @@ function buildMockComic(seed) {
       },
     ],
   };
+}
+
+async function generateComic(seed) {
+  const response = await fetch("/api/generate-comic", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ seed }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`API ${response.status}`);
+  }
+
+  const comic = await response.json();
+  if (!comic.story || !Array.isArray(comic.panels) || comic.panels.length !== 4) {
+    throw new Error("Invalid comic payload");
+  }
+  return comic;
 }
 
 function renderResult(result) {
