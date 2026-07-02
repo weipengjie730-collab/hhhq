@@ -1,0 +1,8 @@
+interface:
+  display_name: "大学生奥德赛"
+  short_description: "帮大学生比较考研考公之外的真实路径"
+  brand_color: "#2563EB"
+  default_prompt: "使用 $college-odyssey-guide 帮我比较大学毕业后的路径，并制定 7/30/90 天行动计划。"
+
+policy:
+  allow_implicit_invocation: true
