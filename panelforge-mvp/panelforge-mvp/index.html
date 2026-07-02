@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>PanelForge MVP</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell" aria-label="PanelForge MVP">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="status-bar">
+          <span>PanelForge</span>
+          <span>MVP 01</span>
+        </div>
+
+        <p class="eyebrow">手机端 AI 短篇漫画练习版</p>
+        <h1 id="hero-title">一句话，跑通 4 格漫画 MVP</h1>
+        <p class="hero-copy">
+          先不做复杂功能，只体验完整上线链路：输入、生成、预览、导出。
+        </p>
+      </section>
+
+      <section class="tool-card" aria-labelledby="input-title">
+        <div class="section-head">
+          <div>
+            <p class="step-label">Step 1</p>
+            <h2 id="input-title">输入一句话</h2>
+          </div>
+          <span class="pill">4 格模板</span>
+        </div>
+
+        <label class="input-label" for="story-input">故事场景</label>
+        <textarea
+          id="story-input"
+          rows="4"
+          maxlength="120"
+          placeholder="例如：下雨天，她在校门口捡到一只会说话的猫"
+        ></textarea>
+
+        <div class="prompt-row" aria-label="快捷示例">
+          <button class="chip" type="button" data-example="下雨天，她在校门口捡到一只会说话的猫">下雨天捡猫</button>
+          <button class="chip" type="button" data-example="社恐少年第一次鼓起勇气邀请同桌看烟花">第一次邀请</button>
+          <button class="chip" type="button" data-example="魔法少年在便利店发现自己的影子正在打工">深夜便利店</button>
+        </div>
+
+        <button id="generate-btn" class="primary-btn" type="button">
+          生成 4 格脚本
+        </button>
+      </section>
+
+      <section id="loading-card" class="tool-card is-hidden" aria-live="polite">
+        <p class="step-label">Generating</p>
+        <h2>正在模拟 AI 链路</h2>
+        <div class="progress-list">
+          <span>剧情补齐</span>
+          <span>分镜拆解</span>
+          <span>预览排版</span>
+        </div>
+      </section>
+
+      <section id="result-card" class="result-card is-hidden" aria-labelledby="result-title">
+        <div class="section-head">
+          <div>
+            <p class="step-label">Step 2</p>
+            <h2 id="result-title">4 格漫画预览</h2>
+          </div>
+          <span class="pill success">可导出</span>
+        </div>
+
+        <article class="story-summary">
+          <h3>补齐剧情</h3>
+          <p id="expanded-story"></p>
+        </article>
+
+        <div id="comic-grid" class="comic-grid" aria-label="四格漫画预览"></div>
+
+        <div class="export-box">
+          <div>
+            <p class="step-label">Step 3</p>
+            <h2>导出检查</h2>
+          </div>
+          <ul>
+            <li>手机端页面可打开</li>
+            <li>一句话输入可提交</li>
+            <li>4 格结果可展示</li>
+            <li>可下载一张 PNG 成稿图</li>
+          </ul>
+          <button id="export-btn" class="secondary-btn" type="button">下载 PNG 成稿</button>
+          <p id="export-state" class="export-state" aria-live="polite"></p>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
